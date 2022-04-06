@@ -1,6 +1,7 @@
 package com.ndb345.registration;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,14 +26,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button register,remove;
     ArrayList<Course> cList=new ArrayList<>();
     ArrayList<String>cTypes=new ArrayList<>();
-    double med_val=0,acc_val=0,hoursval=0,totalhours=0,totalfees=0;
-    String flag="";
     ArrayList<Course>tempList=new ArrayList<>();
     ArrayList<String>tempNames=new ArrayList<>();
-    public static Course obj;
-    double temptotalhours =0;
-    double temptotalfees=0;
-    int j;
+    double med_val=0,acc_val=0,hoursval=0,totalhours=0,totalfees=0,temptotalhours =0,temptotalfees=0;
+    String flag="";
+    int j,n;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         selectedcourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                j=i;
+                n=i;
                 remove.setEnabled(true);
                 register.setEnabled(false);
             }
@@ -125,16 +123,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.remove:
                 lab.setText("");
                 checkboxval();
-                temptotalhours-=cList.get(j).getCoursehours();
-                temptotalfees-=cList.get(j).getCoursefees();
-                totalhours-=cList.get(j).getCoursehours();
-                totalfees-=cList.get(j).getCoursefees();
+                if(!tempList.isEmpty())
+                {Log.d("cList.get(n)",String.valueOf(tempList.get(n)));
+                temptotalhours-=tempList.get(n).getCoursehours();
+                temptotalfees-=tempList.get(n).getCoursefees();
+                totalhours-=tempList.get(n).getCoursehours();
+                totalfees-=tempList.get(n).getCoursefees();
                 total_hours_val.setText(String.valueOf(totalhours));
                 total_fees_val.setText(String.valueOf(totalfees));
-                tempNames.remove(j);
-                tempList.remove(j);
+                tempNames.remove(n);
+                tempList.remove(n);
                 ArrayAdapter ab = new ArrayAdapter(this, R.layout.spinnerdes, tempNames);
-                selectedcourse.setAdapter(ab);
+                selectedcourse.setAdapter(ab);}
                 break;
             case R.id.register:
                 checkboxval();
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(!tempList.contains(cList.get(j))) {
                     lab.setText("");
                     if (flag.equals("graduated")) {
-                        if (temptotalhours <= 21) {
+                        if (totalhours <= 21) {
                             totalhours+=cList.get(j).getCoursehours();
                             totalfees+=cList.get(j).getCoursefees();
                             tempList.add(cList.get(j));
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         {lab.setText("Maximum Hours");
                         }
                     } else if (flag.equals("ungraduated")) {
-                        if (temptotalhours <= 19) {
+                        if (totalhours <= 19) {
                             totalhours+=cList.get(j).getCoursehours();
                             totalfees+=cList.get(j).getCoursefees();
                             tempList.add(cList.get(j));
