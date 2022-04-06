@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(!tempList.contains(cList.get(j))) {
                     lab.setText("");
                     if (flag.equals("graduated")) {
-                        if (totalhours <= 21) {
+                        if (temptotalhours <= 21) {
                             totalhours+=cList.get(j).getCoursehours();
                             totalfees+=cList.get(j).getCoursefees();
                             tempList.add(cList.get(j));
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         {lab.setText("Maximum Hours");
                         }
                     } else if (flag.equals("ungraduated")) {
-                        if (totalhours <= 19) {
+                        if (temptotalhours <= 19) {
                             totalhours+=cList.get(j).getCoursehours();
                             totalfees+=cList.get(j).getCoursefees();
                             tempList.add(cList.get(j));
