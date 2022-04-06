@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<String>tempNames=new ArrayList<>();
     double med_val=0,acc_val=0,hoursval=0,totalhours=0,totalfees=0,temptotalhours =0,temptotalfees=0;
     String flag="";
-    int j,n;
+    int j;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         selectedcourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                n=i;
+                j=i;
                 remove.setEnabled(true);
                 register.setEnabled(false);
             }
@@ -124,15 +124,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 lab.setText("");
                 checkboxval();
                 if(!tempList.isEmpty())
-                {Log.d("cList.get(n)",String.valueOf(tempList.get(n)));
-                temptotalhours-=tempList.get(n).getCoursehours();
-                temptotalfees-=tempList.get(n).getCoursefees();
-                totalhours-=tempList.get(n).getCoursehours();
-                totalfees-=tempList.get(n).getCoursefees();
+                {Log.d("cList.get(n)",String.valueOf(tempList.get(j)));
+                temptotalhours-=tempList.get(j).getCoursehours();
+                temptotalfees-=tempList.get(j).getCoursefees();
+                totalhours-=tempList.get(j).getCoursehours();
+                totalfees-=tempList.get(j).getCoursefees();
                 total_hours_val.setText(String.valueOf(totalhours));
                 total_fees_val.setText(String.valueOf(totalfees));
-                tempNames.remove(n);
-                tempList.remove(n);
+                tempNames.remove(j);
+                tempList.remove(j);
                 ArrayAdapter ab = new ArrayAdapter(this, R.layout.spinnerdes, tempNames);
                 selectedcourse.setAdapter(ab);}
                 break;
