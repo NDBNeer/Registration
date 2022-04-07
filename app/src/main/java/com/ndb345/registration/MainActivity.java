@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<String>cTypes=new ArrayList<>();
     ArrayList<Course>tempList=new ArrayList<>();
     ArrayList<String>tempNames=new ArrayList<>();
-    double med_val=0,acc_val=0,hoursval=0,totalhours=0,totalfees=0,temptotalhours =0,temptotalfees=0;
+    double med_val=0,acc_val=0,hoursval=0,totalhours=0,totalfees=0;//temptotalhours =0,temptotalfees=0;
     String flag="";
     int j;
 
@@ -125,11 +125,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 checkboxval();
                 if(!tempList.isEmpty())
                 {Log.d("cList.get(n)",String.valueOf(tempList.get(j)));
-                temptotalhours-=tempList.get(j).getCoursehours();
-                temptotalfees-=tempList.get(j).getCoursefees();
+                //temptotalhours-=tempList.get(j).getCoursehours();
+                //temptotalfees-=tempList.get(j).getCoursefees();
                 totalhours-=tempList.get(j).getCoursehours();
                 totalfees-=tempList.get(j).getCoursefees();
-                total_hours_val.setText(String.valueOf(totalhours));
+                    Log.d("temptotalhours inremove",String.valueOf(totalhours));
+                    total_hours_val.setText(String.valueOf(totalhours));
                 total_fees_val.setText(String.valueOf(totalfees));
                 tempNames.remove(j);
                 tempList.remove(j);
@@ -138,14 +139,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.register:
                 checkboxval();
-                temptotalhours+=cList.get(j).getCoursehours();
+               /* temptotalhours+=cList.get(j).getCoursehours();
                 temptotalfees+=cList.get(j).getCoursefees();
+                Log.d("temptotalhours in reg",String.valueOf(temptotalhours));
+                Log.d("temptotalfees in reg",String.valueOf(temptotalfees));*/
                 //Toast.makeText(this,name.getText().toString(),Toast.LENGTH_SHORT).show();
+                Log.d("temptotalhours in reg1",String.valueOf(totalhours));
+
                 if(!tempList.contains(cList.get(j))) {
                     lab.setText("");
                     if (flag.equals("graduated")) {
-                        if (temptotalhours <= 21) {
+                        if (totalhours+cList.get(j).getCoursehours() <= 21) {
                             totalhours+=cList.get(j).getCoursehours();
+                            Log.d("temptotalhours in reg2",String.valueOf(totalhours));
                             totalfees+=cList.get(j).getCoursefees();
                             tempList.add(cList.get(j));
                             tempNames.add(cList.get(j).getCoursename());
@@ -156,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         {lab.setText("Maximum Hours");
                         }
                     } else if (flag.equals("ungraduated")) {
-                        if (temptotalhours <= 19) {
+                        if (totalhours+cList.get(j).getCoursehours() <= 19) {
                             totalhours+=cList.get(j).getCoursehours();
                             totalfees+=cList.get(j).getCoursefees();
                             tempList.add(cList.get(j));
@@ -171,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         hoursval = 0;
                         totalhours=0;
                         totalfees=0;
-                        temptotalhours=0;
+                        //temptotalhours=0;
                         lab.setText("");
                     }
 
